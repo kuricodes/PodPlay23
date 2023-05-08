@@ -5,11 +5,11 @@ import com.raywenderlich.podplay.util.DateUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.ResponseBody
-import retrofit2.Retrofit
 import okhttp3.logging.HttpLoggingInterceptor
 import org.w3c.dom.Node
+import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Url

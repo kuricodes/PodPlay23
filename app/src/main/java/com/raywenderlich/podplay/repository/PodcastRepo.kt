@@ -2,12 +2,11 @@ package com.raywenderlich.podplay.repository
 
 import com.raywenderlich.podplay.model.Episode
 import com.raywenderlich.podplay.model.Podcast
-import com.raywenderlich.podplay.service.FeedService
 import com.raywenderlich.podplay.service.RssFeedResponse
 import com.raywenderlich.podplay.service.RssFeedService
 import com.raywenderlich.podplay.util.DateUtils
 
-class PodcastRepo(private var feedService: FeedService) {
+class PodcastRepo(private var feedService: RssFeedService) {
     suspend fun getPodcast(feedUrl: String): Podcast? {
         var podcast: Podcast? = null
         val feedResponse = feedService.getFeed(feedUrl)

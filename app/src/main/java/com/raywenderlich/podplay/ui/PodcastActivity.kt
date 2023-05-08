@@ -50,8 +50,8 @@ import com.raywenderlich.podplay.databinding.ActivityPodcastBinding
 import com.raywenderlich.podplay.databinding.SearchItemBinding
 import com.raywenderlich.podplay.repository.ItunesRepo
 import com.raywenderlich.podplay.repository.PodcastRepo
-import com.raywenderlich.podplay.service.FeedService
 import com.raywenderlich.podplay.service.ItunesService
+import com.raywenderlich.podplay.service.RssFeedService
 import com.raywenderlich.podplay.viewmodel.PodcastViewModel
 import com.raywenderlich.podplay.viewmodel.SearchViewModel
 import kotlinx.coroutines.Dispatchers
@@ -81,6 +81,7 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapter.PodcastListAdapt
     setupToolbar()
     setupViewModels()
     updateControls()
+    createSubscription()
     handleIntent(intent)
     addBackStackListener()
   }
@@ -135,7 +136,7 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapter.PodcastListAdapt
   private fun setupViewModels() {
     val service = ItunesService.instance
     searchViewModel.iTunesRepo = ItunesRepo(service)
-    podcastViewModel.podcastRepo = PodcastRepo(FeedService.instance)
+    podcastViewModel.podcastRepo = PodcastRepo(RssFeedService.instance)
   }
 
   private fun updateControls() {
@@ -160,14 +161,14 @@ class PodcastActivity : AppCompatActivity(), PodcastListAdapter.PodcastListAdapt
   }
 
   private fun createSubscription() {
-    podcastViewModel.podcastLiveData.observe(this, {
+    podcastViewModel.podcastLiveData.observe(this) {
       hideProgressBar()
       if (it != null) {
         showDetailsFragment()
       } else {
         showError("Error loading feed")
       }
-    })
+    }
   }
 
   private fun createPodcastDetailsFragment():
